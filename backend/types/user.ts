@@ -2,32 +2,32 @@ import type { Booking } from './booking';
 import type { Order } from './order';
 
 export enum UserRole {
-  ADMIN = 'ADMIN',
-  CUSTOMER = 'CUSTOMER',
-  STAFF = 'STAFF',
+  ADMIN = 'admin',
+  CUSTOMER = 'Customer',
+  STAFF = 'staff',
 }
 
 export enum StaffPosition {
-  WAITER = 'WAITER',
-  CASHIER = 'CASHIER',
-  CHEF = 'CHEF',
-  DELIVERY = 'DELIVERY',
+  WAITER = 'waiter',
+  CASHIER = 'cashier',
+  CHEF = 'chef',
+  DELIVERY = 'delivery',
 }
 
 export enum AuthProvider {
-  CREDENTIAL = 'CREDENTIAL',
-  GOOGLE = 'GOOGLE',
+  CREDENTIAL = 'credential',
+  GOOGLE = 'google',
 }
 
 export enum UserStatus {
-  ACTIVE = 'ACTIVE',
-  BLOCKED = 'BLOCKED',
-  DELETED = 'DELETED',
+  ACTIVE = 'active',
+  BLOCKED = 'blocked',
+  DELETED = 'deleted',
 }
 
 export enum StaffStatus {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
 }
 
 export interface User {
