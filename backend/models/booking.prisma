@@ -1,0 +1,37 @@
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  REJECTED
+}
+
+model Booking {
+  id              String        @id @default(uuid())
+
+  customerId      String?
+  tableId         String?
+
+  customerName    String
+  customerEmail   String
+  customerPhone   String?
+
+  bookingDate     DateTime
+  numberOfGuests  Int
+
+  status          BookingStatus @default(PENDING)
+  note            String?
+  rejectReason    String?
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  customer        User?             @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  table           RestaurantTable?  @relation(fields: [tableId], references: [id], onDelete: SetNull)
+
+  @@index([customerId])
+  @@index([tableId])
+  @@index([tableId, bookingDate, status])
+  @@index([bookingDate])
+  @@index([status])
+}

@@ -1,0 +1,75 @@
+enum FoodStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum Locale {
+  EN
+  VI
+  CS
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  imageUrl  String?
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  translations CategoryTranslation[]
+  foods        Food[]
+}
+
+model CategoryTranslation {
+  id          String @id @default(uuid())
+  categoryId  String
+  locale      Locale
+
+  name        String
+  description String?
+
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, locale])
+  @@index([locale])
+}
+
+model Food {
+  id         String     @id @default(uuid())
+  categoryId String
+
+  price      Decimal    @db.Decimal(10, 2)
+  imageUrl   String?
+  status     FoodStatus @default(ACTIVE)
+
+  isFeatured Boolean    @default(false)
+  sortOrder  Int        @default(0)
+
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  category   Category   @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  translations FoodTranslation[]
+  orderItems   OrderItem[]
+
+  @@index([categoryId])
+  @@index([status])
+}
+
+model FoodTranslation {
+  id          String @id @default(uuid())
+  foodId      String
+  locale      Locale
+
+  name        String
+  description String?
+
+  food        Food   @relation(fields: [foodId], references: [id], onDelete: Cascade)
+
+  @@unique([foodId, locale])
+  @@index([locale])
+}
