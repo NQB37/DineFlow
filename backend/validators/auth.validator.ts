@@ -1,0 +1,26 @@
+import { z } from 'zod';
+
+export const signupSchema = z.object({
+  email: z
+    .string()
+    .email()
+    .transform((value) => value.toLowerCase()),
+  password: z.string().min(8),
+  firstName: z.string().trim().min(1).optional(),
+  lastName: z.string().trim().min(1).optional(),
+});
+
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .email()
+    .transform((value) => value.toLowerCase()),
+  password: z.string().min(1),
+});
+
+export const googleCallbackSchema = z.object({
+  code: z.string().min(1),
+});
+
+export type SignupInput = z.infer<typeof signupSchema>;
+export type LoginInput = z.infer<typeof loginSchema>;
